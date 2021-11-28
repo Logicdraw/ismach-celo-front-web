@@ -1,0 +1,58 @@
+html, body {
+	background-color: #2f2f2f;
+	color: #ccc;
+}
+
+
+.field {
+	margin-bottom: 2rem !important;
+}
+
+
+.hero-title {
+	font-size: 2.5rem;
+	color: #fff;
+	margin-bottom: 1.5rem;
+}
+
+
+.input {
+	background-color: transparent;
+	border-color: #aaa;
+	color: #fff;
+}
+
+
+a {
+	color: #cfcfcf;
+}
+
+a:hover {
+	color: #cfcfcf;
+	text-decoration: underline;
+}
+
+.input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: #cfcfcf;
+	opacity: 1; /* Firefox */
+}
+
+.input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	color: #cfcfcf;
+}
+
+.input::-ms-input-placeholder { /* Microsoft Edge */
+	color: #cfcfcf;
+}
+
+
+.field label {
+	color: #ddd;
+	margin-bottom: 1rem;
+	display: block;
+}
+
+
+
+
+

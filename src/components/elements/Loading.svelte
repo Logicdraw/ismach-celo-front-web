@@ -41,7 +41,7 @@ export let is_fullheight;
 		<div class="container">
 
 			<div class="loading">
-				<i class="fas fa-circle-notch fa-spin"></i>
+				Loading ...
 			</div>
 
 		</div>

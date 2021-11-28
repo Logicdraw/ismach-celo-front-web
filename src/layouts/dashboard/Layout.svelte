@@ -73,7 +73,11 @@ testAccessToken().then(data => {
 	return;
 }).catch(err => {
 	auth.set({token: null});
+	if (currentRoute.queryParams.next_link) {
+		navigateTo(`/login?next_link=${currentRoute.queryParams.next_link}`);
+	}
 	navigateTo('/login');
+
 }).finally(() => {
 	loading = false;
 });
@@ -96,7 +100,7 @@ testAccessToken().then(data => {
 {#if loading}
 <Loading is_fullheight={true} />
 {:else}
-<Navbar />
+<!-- <Navbar /> -->
 <div id="dashboard-layout" class="layout">
 	<Route {currentRoute} {params} />
 </div>

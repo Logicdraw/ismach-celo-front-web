@@ -4,15 +4,39 @@ export let currentRoute;
 import Form from 'components/forms/views/auth/login/Form.svelte';
 
 
-let next_link = currentRoute.queryParams;
+let next_link = '';
 
+if (currentRoute.queryParams.next_link) {
+	next_link = currentRoute.queryParams.next_link;
+}
 
 </script>
 
 
 <style>
 
+.hero-title {
+	/*color: #000;*/
+}
+
 </style>
+
+
+<section class="hero">
+
+	<div class="hero-body" style="padding-bottom: 0;">
+
+		<div class="container">
+
+			<p class="hero-title has-text-centered">
+				Celo <span style="color: gold;">Gold</span> Packet
+			</p>
+
+		</div>
+
+	</div>
+
+</section>
 
 
 <section class="section">
@@ -21,7 +45,7 @@ let next_link = currentRoute.queryParams;
 
 		<div class="columns is-centered">
 
-			<div class="column is-8-desktop is-10-tablet is-12-mobile">
+			<div class="column is-5-desktop is-8-tablet is-12-mobile">
 
 				<Form {next_link} />
 

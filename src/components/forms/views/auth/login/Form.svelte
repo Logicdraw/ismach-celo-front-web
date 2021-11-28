@@ -50,12 +50,14 @@ const {
 	}),
 	onSubmit: values => {
 
+		// alert('...');
+
 		loading = true;
 
 		let form_data = new FormData();
 
 		form_data.append('username', values.username);
-		form_data.append('password', values.code);
+		form_data.append('password', values.password);
 
 		submitForm(form_data).then(data => {
 
@@ -91,7 +93,11 @@ async function submitForm(form_data) {
 		body: form_data,
 	});
 
+	console.log(resp);
+
 	const result = await resp.json();
+
+	console.log(result);
 
 	if (!resp.ok) {
 		msg_text = result.detail;
@@ -121,7 +127,7 @@ form {
 
 		<div class="control">
 
-			<input placeholder="username" class="input" type="text" id="username" name="username" on:change={handleChange} bind:value={$form.username}>
+			<input placeholder="Username" class="input" type="text" id="username" name="username" on:change={handleChange} bind:value={$form.username}>
 
 			{#if $errors.username}
 				<FormFieldError detail={$errors.username} />
@@ -150,12 +156,16 @@ form {
 
 		<div class="control">
 
-			<button  class="button is-blue">
+			<button class="button is-blue">
 				<span>Continue</span>
 				<i class="fas fa-circle-notch fa-spin" class:is-hidden={!loading}></i>
 			</button>
 
 		</div>
+
+	</div>
+
+	<div class="field is-grouped">
 
 		<div class="control">
 

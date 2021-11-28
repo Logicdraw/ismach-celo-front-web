@@ -33,7 +33,7 @@ onMount(() => {
 </style>
 
 
-<Navbar />
+<!-- <Navbar /> -->
 <div id="auth-layout" class="layout">
 	<Route {currentRoute} {params} />
 </div>

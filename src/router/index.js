@@ -5,8 +5,7 @@ import AuthLayout from 'layouts/auth/Layout.svelte';
 import AuthLogin from 'views/auth/Login.svelte';
 
 
-import DashboardLayout from 'layouts/dashboard9/Layout.svelte';
-
+import DashboardLayout from 'layouts/dashboard/Layout.svelte';
 
 import DashboardHome from 'views/dashboard/Home.svelte';
 

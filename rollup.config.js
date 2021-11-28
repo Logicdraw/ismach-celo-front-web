@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
+import json from '@rollup/plugin-json';
 
 
 import { config } from 'dotenv';
@@ -87,8 +88,7 @@ export default {
 			app_: JSON.stringify({
 				env: {
 					IS_PROD: production,
-					AUTH_API_URL: process.env.AUTH_API_URL,
-					ORDERS_API_URL: process.env.ORDERS_API_URL,
+					API_URL: process.env.API_URL,
 					MAINTENANCE: process.env.MAINTENANCE,
 					// HCAPTCHA_SITE_KEY: process.env.HCAPTCHA_SITE_KEY,
 				}
@@ -122,11 +122,14 @@ export default {
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
-		production && terser()
+		production && terser(),
+
+		// ---
+		json()
 	],
 	watch: {
 		clearScreen: false
-	}
+	},
 };
 
 

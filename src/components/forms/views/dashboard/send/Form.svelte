@@ -2,6 +2,7 @@
 export let msg_show;
 export let msg_text;
 export let msg_type;
+// export let balance;
 
 
 import { auth } from 'store/index.js';
@@ -20,10 +21,17 @@ import FormFieldError from 'components/forms/FormFieldError.svelte';
 
 
 const api_url = app_.env.API_URL;
+
+const token = get(auth).token;
+
 // const hcaptcha_site_key = app_.env.HCAPTCHA_SITE_KEY;
 
 let loading = false;
 
+
+let packet_sent = false;
+
+let link = '';
 
 
 const {
@@ -36,35 +44,41 @@ const {
 	setField,
 } = createForm({
 	initialValues: {
-		username: '',
-		password: '',
+		celo_value_amount: '',
+		recipients_amount: '',
+		message: '',
 	},
 	validationSchema: yup.object().shape({
-		username: yup
+		celo_value_amount: yup
+			.number()
+			.required('Amount'),
+		recipients_amount: yup
+			.number()
+			.required(),
+		message: yup
 			.string()
-			.required('Username required!'),
-		password: yup
-			.string()
-			.required('Password required!'),
+			.required(),
 	}),
 	onSubmit: values => {
 
 		loading = true;
 
-		let form_data = new FormData();
+		let body_data = JSON.stringify(values);
 
-		form_data.append('username', values.username);
-		form_data.append('password', values.code);
+		submitForm(body_data).then(data => {
 
-		submitForm(form_data).then(data => {
+			alert('Packet Sent!');
 
-			auth.set({token: data.access_token});
-			navigateTo('/logged-in');
+			packet_sent = true;
+			link = data.link;
+			// navigateTo!...
 
 		}).catch(error => {
 
-			msg_type = 'error';
-			msg_show = true;
+			console.log(error);
+			alert('Error!');
+			// msg_type = 'error';
+			// msg_show = true;
 
 		}).finally(() => {
 
@@ -76,16 +90,22 @@ const {
 });
 
 
-async function submitForm(form_data) {
+async function submitForm(body_data) {
 
-	const url = `${api_url}/_auth/access-token`;
+	const url = `${api_url}/_sender/pockets`;
 
 	const resp = await fetch(url, {
 		method: 'POST',
-		body: form_data,
+		body: body_data,
+		headers: {
+			Authorization: `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
 	});
 
 	const result = await resp.json();
+
+	console.log(result);
 
 	if (!resp.ok) {
 		msg_text = result.detail;
@@ -115,10 +135,12 @@ form {
 
 		<div class="control">
 
-			<input placeholder="Uername" class="input" type="text" id="username" name="username" on:change={handleChange} bind:value={$form.username}>
+			<label>Celo Packet Amount</label>
 
-			{#if $errors.username}
-				<FormFieldError detail={$errors.username} />
+			<input placeholder="Celo Packet Amount" class="input" type="number" id="celo_value_amount" name="celo_value_amount" on:change={handleChange} bind:value={$form.celo_value_amount}>
+
+			{#if $errors.celo_value_amount}
+				<FormFieldError detail={$errors.celo_value_amount} />
 			{/if}
 
 		</div>
@@ -129,10 +151,12 @@ form {
 
 		<div class="control">
 
-			<input placeholder="Password" class="input" type="password" id="password" name="password"  on:change={handleChange} bind:value={$form.password}>
+			<label>Total Recipients</label>
 
-			{#if $errors.password}
-				<FormFieldError detail={$errors.password} />
+			<input placeholder="Total Recipients" class="input" type="number" id="recipients_amount" name="recipients_amount" on:change={handleChange} bind:value={$form.recipients_amount}>
+
+			{#if $errors.recipients_amount}
+				<FormFieldError detail={$errors.recipients_amount} />
 			{/if}
 
 		</div>
@@ -140,18 +164,64 @@ form {
 	</div>
 
 
+	<div class="field">
+
+		<div class="control">
+
+			<label>Message</label>
+
+			<input placeholder="Message" class="input" type="text" id="message" name="message" on:change={handleChange} bind:value={$form.message}>
+
+			{#if $errors.message}
+				<FormFieldError detail={$errors.message} />
+			{/if}
+
+		</div>
+
+	</div>
+
+	{#if !packet_sent}
+
 	<div class="field is-grouped">
 
 		<div class="control">
 
 			<button  class="button is-blue">
-				<span>Continue</span>
+				<span>Create Packet</span>
 				<i class="fas fa-circle-notch fa-spin" class:is-hidden={!loading}></i>
 			</button>
 
 		</div>
 
 	</div>
+
+	{:else}
+
+	<div class="field is-grouped">
+
+		<div class="control">
+
+			<div lass="button is-blue">
+				<span>Share</span>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="field is-grouped">
+
+		<div class="control">
+
+			<div lass="button is-blue">
+				<span>Copy Link: https://ismach-celo-front-web.vercel.app/dashboard/packet/{link}</span>
+			</div>
+
+		</div>
+
+	</div>
+
+	{/if}
 
 </form>
 
