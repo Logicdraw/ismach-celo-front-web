@@ -50,7 +50,24 @@ let promise = Promise.all([
 
 {#await promise}
 
-<Loading />
+<section class="hero">
+
+	<div class="hero-body">
+
+		<div class="container">
+
+			<img src="/cgp_logo.jpeg" style="height: auto; width: 100%; display: block; margin: 0 auto;">
+
+			<br>
+			<br>
+
+			<i class="fas fa-circle-notch fa-spin" style="text-align: center; color: #aaa; width: 100%; font-size: 1.5rem; margin-left: 0.5rem;"></i>
+
+		</div>
+
+	</div>
+
+</section>
 
 {:then data}
 
@@ -58,10 +75,15 @@ let promise = Promise.all([
 
 	<div class="container">
 
+		<p class="text has-text-centered" style="color: #1c1c1c; font-weight: 500;">
+			Send Red Pocket
+		</p>
+
+		<br>
+
 		<SendForm />
 
-
-		<div class="field">
+		<!-- <div class="field">
 
 			<div class="control">
 
@@ -72,7 +94,7 @@ let promise = Promise.all([
 			</div>
 
 		</div>
-
+ -->
 	</div>
 
 </section>

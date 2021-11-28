@@ -67,7 +67,7 @@ const {
 
 		submitForm(body_data).then(data => {
 
-			alert('Packet Sent!');
+			// alert('Packet Sent!');
 
 			packet_sent = true;
 			link = data.link;
@@ -131,11 +131,13 @@ form {
 
 <form on:submit={handleSubmit}>
 
+	{#if !packet_sent}
+
 	<div class="field">
 
 		<div class="control">
 
-			<label>Celo Packet Amount</label>
+			<label>Amount</label>
 
 			<input placeholder="Celo Packet Amount" class="input" type="number" id="celo_value_amount" name="celo_value_amount" on:change={handleChange} bind:value={$form.celo_value_amount}>
 
@@ -151,7 +153,7 @@ form {
 
 		<div class="control">
 
-			<label>Total Recipients</label>
+			<label>Number of Recipients</label>
 
 			<input placeholder="Total Recipients" class="input" type="number" id="recipients_amount" name="recipients_amount" on:change={handleChange} bind:value={$form.recipients_amount}>
 
@@ -168,7 +170,7 @@ form {
 
 		<div class="control">
 
-			<label>Message</label>
+			<label>Description</label>
 
 			<input placeholder="Message" class="input" type="text" id="message" name="message" on:change={handleChange} bind:value={$form.message}>
 
@@ -180,7 +182,18 @@ form {
 
 	</div>
 
-	{#if !packet_sent}
+
+	<div class="field">
+
+		<div class="control">
+
+			<label>Password</label>
+
+			<input placeholder="Password" class="input" type="password">
+
+		</div>
+
+	</div>
 
 	<div class="field is-grouped">
 
@@ -188,7 +201,7 @@ form {
 
 			<button  class="button is-blue">
 				<span>Create Packet</span>
-				<i class="fas fa-circle-notch fa-spin" class:is-hidden={!loading}></i>
+				<i class="fas fa-circle-notch fa-spin" class:is-hidden={!loading} style="margin-left: 1rem; display: block;"></i>
 			</button>
 
 		</div>
@@ -197,29 +210,76 @@ form {
 
 	{:else}
 
-	<div class="field is-grouped">
+	<div class="field">
 
 		<div class="control">
 
-			<div lass="button is-blue">
-				<span>Share</span>
+			<label>Red Pocket Link</label>
+
+			<input type="" name="" class="input" readonly value="https://ismach-celo-front-web.vercel.app/dashboard/packet/{link}">
+
+		</div>
+
+	</div>
+
+	<br>
+	<br>
+
+
+	<div class="field">
+
+		<div class="control">
+
+			<div class="button is-white">
+				<i class="fab fa-whatsapp" style="margin-right: 1rem;"></i>
+				<span>Share to Whatsapp</span>
 			</div>
 
 		</div>
 
 	</div>
 
-	<div class="field is-grouped">
+
+	<div class="field">
 
 		<div class="control">
 
-			<div lass="button is-blue">
-				<span>Copy Link: https://ismach-celo-front-web.vercel.app/dashboard/packet/{link}</span>
+			<div class="button is-white">
+				<i class="fab fa-twitter" style="margin-right: 1rem;"></i>
+				<span>Share to Twitter</span>
 			</div>
 
 		</div>
 
 	</div>
+
+
+	<div class="field">
+
+		<div class="control">
+
+			<div class="button is-white">
+				<i class="fab fa-facebook" style="margin-right: 1rem;"></i>
+				<span>Share to Facebook</span>
+			</div>
+
+		</div>
+
+	</div>
+
+
+	<div class="field is-grouped">
+
+		<div class="control">
+
+			<div class="button is-blue">
+				<span>Copy Link</span>
+			</div>
+
+		</div>
+
+	</div>
+
 
 	{/if}
 

@@ -11,6 +11,8 @@ import DashboardHome from 'views/dashboard/Home.svelte';
 
 import DashboardPacket from 'views/dashboard/Packet.svelte';
 
+import DashboardPacketLucky from 'views/dashboard/LuckyWinners.svelte';
+
 import DashboardSend from 'views/dashboard/Send.svelte';
 
 
@@ -34,6 +36,11 @@ const routes = [
 	{
 		name: '/dashboard/packet/:slug',
 		component: DashboardPacket,
+		// layout: DashboardLayout,
+	},
+	{
+		name: '/dashboard/packet/:slug/lucky',
+		component: DashboardPacketLucky,
 		layout: DashboardLayout,
 	},
 	{

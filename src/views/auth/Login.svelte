@@ -28,9 +28,7 @@ if (currentRoute.queryParams.next_link) {
 
 		<div class="container">
 
-			<p class="hero-title has-text-centered">
-				Celo <span style="color: gold;">Gold</span> Packet
-			</p>
+			<img src="/cgp_logo.jpeg" style="height: auto; width: 100%; display: block; margin: 0 auto;">
 
 		</div>
 

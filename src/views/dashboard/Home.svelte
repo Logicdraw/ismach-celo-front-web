@@ -45,6 +45,7 @@ let promise = Promise.all([
 ]);
 
 
+let connected_wallet = false;
 
 
 </script>
@@ -55,10 +56,57 @@ let promise = Promise.all([
 </style>
 
 
+{#if !connected_wallet}
+
+<section class="section">
+
+	<div class="container">
+
+		<img src="/cgp_logo.jpeg" style="height: auto; width: 100%; display: block; margin: 0 auto;">
+
+		<br>
+
+		<p class="text has-text-centered">
+			Kindly connect you Valora Wallet
+		</p>
+
+
+		<br>
+		<br>
+		<br>
+
+
+		<div class="button is-white" style="border: blue; display: block; margin: 0 auto; max-width: 100%;" on:click={() => { connected_wallet = true}}>
+			<img src="https://valoraapp.com/_next/static/images/icon-62b90ddabe4910b9c5d55ecabf817aa8.png" height="16" width="16" style="margin-right: 1.5rem;">
+			Connect Valora Wallet
+		</div>
+
+	</div>
+
+</section>
+
+{:else}
 
 {#await promise}
 
-<Loading />
+<section class="hero">
+
+	<div class="hero-body">
+
+		<div class="container">
+
+			<img src="/cgp_logo.jpeg" style="height: auto; width: 100%; display: block; margin: 0 auto;">
+
+			<br>
+			<br>
+
+			<i class="fas fa-circle-notch fa-spin" style="text-align: center; color: #aaa; width: 100%; font-size: 1.5rem;"></i>
+
+		</div>
+
+	</div>
+
+</section>
 
 {:then data}
 
@@ -66,66 +114,72 @@ let promise = Promise.all([
 
 	<div class="container">
 
-		<div class="field">
 
-			<div class="control">
+		<div class="card" style="background: #243de2 !important;">
 
-				<label>Balance</label>
+			<div class="card-content">
 
-				<input class="input" disabled value="{data[0].balance} CELO">
+				<div class="columns is-mobile is-variable is-3 is-vcentered">
+
+					<div class="column is-narrow">
+
+						<img src="https://thumbs.dreamstime.com/b/flat-square-icon-cute-crocodile-teeth-red-background-wilderness-nature-logo-great-avatar-61506088.jpg" style="border-radius: 50%; border: 2px solid #fff; height: 64px; width: 64px;">
+
+					</div>
+
+					<div class="column">
+
+						<p class="text" style="color: #fff; font-weight: 500; margin-bottom: 0.5rem;">Test User</p>
+
+						<p class="text" style="color: #fff; font-weight: 400; margin-bottom: 0rem;">@test</p>
+
+					</div>
+
+				</div>
 
 			</div>
 
 		</div>
 
+		<br>
+
+		<br>
+
 		<div class="field">
 
 			<div class="control">
 
-				<Navigate styles='' to='/dashboard/send'>
-					Send a Gold Packet
+				<label>Account Balance</label>
+
+				<input class="input" readonly value="{data[0].balance} CELO" style="color: blue;">
+
+			</div>
+
+		</div>
+
+		<br>
+
+		<div class="field">
+
+			<div class="control">
+
+				<label style="color: #101010;">Things to do</label>
+
+				<Navigate styles='button is-white' to='/dashboard/send'>
+					Send Gold Packet
+				</Navigate>
+
+				<br>
+
+				<Navigate styles='button is-white' to='#'>
+					Withdraw
 				</Navigate>
 
 			</div>
 
 		</div>
 
-		<div class="field">
-
-			<div class="control">
-
-				<button class="button">
-					Deposit
-				</button>
-
-			</div>
-
-		</div>
-
-		<div class="field">
-
-			<div class="control">
-
-				<button class="button">
-					Withdraw
-				</button>
-
-			</div>
-
-		</div>
-
-
-		<div class="field">
-
-			<div class="control">
-
-				<a href="#">
-					Account Settings
-				</a>
-
-			</div>
-
-		</div>
+		
 
 	</div>
 
@@ -136,4 +190,6 @@ let promise = Promise.all([
 error
 
 {/await}
+
+{/if}
 

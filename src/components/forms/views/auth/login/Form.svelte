@@ -118,6 +118,10 @@ form {
 
 }
 
+:global(.form-card-link) {
+	text-align: center;
+}
+
 </style>
 
 
@@ -154,10 +158,10 @@ form {
 
 	<div class="field is-grouped">
 
-		<div class="control">
+		<div class="control" style="width: 100%;">
 
-			<button class="button is-blue">
-				<span>Continue</span>
+			<button class="button is-blue" style="width: 100% !important; display: block !important;">
+				<span>Log In</span>
 				<i class="fas fa-circle-notch fa-spin" class:is-hidden={!loading}></i>
 			</button>
 
